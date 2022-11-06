@@ -20,7 +20,7 @@ describe('Testing plan routes', () => {
 
     afterAll(async () => await connection.destroy())
 
-    test('POST /plans -> Must be able to create a new plan', async () => {
+    it('POST /plans -> Must be able to create a new plan', async () => {
 
         const login = await request(app).post('/session').send(session)
 
@@ -37,7 +37,7 @@ describe('Testing plan routes', () => {
         expect(response.body).toHaveProperty('signature_date')
     })
     
-    test('POST /plans -> Should prevent to create a plan without token', async () => {
+    it('POST /plans -> Should prevent to create a plan without token', async () => {
 
         const response = await request(app).post('/plans').send(plan)
 

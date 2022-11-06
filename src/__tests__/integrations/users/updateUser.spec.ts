@@ -18,7 +18,7 @@ describe('Testing user routes', () => {
 
     afterAll(async () => await connection.destroy())
 
-    test('PATCH /users/:id -> Must be able to update a user', async () => {
+    it('PATCH /users/:id -> Must be able to update a user', async () => {
 
         const user_response = await request(app).post('/users').send(user)
 
@@ -43,7 +43,7 @@ describe('Testing user routes', () => {
         expect(response.body).toHaveProperty('products')
     })
 
-    test('PATCH /users/:id -> Should prevent updating a user with no token', async () => {
+    it('PATCH /users/:id -> Should prevent updating a user with no token', async () => {
 
         const user_response = await request(app).post('/users').send(user)
         
@@ -53,7 +53,7 @@ describe('Testing user routes', () => {
         expect(response.body).toHaveProperty('message')
     })
 
-    test('PATCH /users/:id -> Should prevent a disabled user from updating', async () => {
+    it('PATCH /users/:id -> Should prevent a disabled user from updating', async () => {
 
         const user_response = await request(app).post('/users').send(user_two)
 

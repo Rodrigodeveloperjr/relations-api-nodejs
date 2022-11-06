@@ -18,7 +18,7 @@ describe('Tests for login service', () => {
 
     afterAll(async () => await connection.destroy())
 
-    test('Must be able to create a session', async () => {
+    it('Must be able to create a session', async () => {
     
         await createUserService(user)
 

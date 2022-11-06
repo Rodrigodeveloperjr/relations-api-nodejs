@@ -16,7 +16,7 @@ describe('Tests for user service', () => {
 
     afterAll(async () => await connection.destroy())
 
-    test('Should be able to list multiple users', async () => {
+    it('Should be able to list multiple users', async () => {
     
         const result = await listUsersService()
 

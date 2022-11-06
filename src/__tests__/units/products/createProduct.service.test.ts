@@ -1,7 +1,7 @@
-import { AppDataSource } from '../../../data-source'
-import { DataSource } from 'typeorm'
-import { product } from '../../mocks'
-import { createProductService } from '../../../services/products/createProduct.service'
+import { createProductService } from "../../../services/products/createProduct.service"
+import { AppDataSource } from "../../../data-source"
+import { product } from "../../mocks"
+import { DataSource } from "typeorm"
 
 
 describe('Tests for product service', () => {
@@ -17,7 +17,7 @@ describe('Tests for product service', () => {
 
     afterAll(async () => await connection.destroy())
 
-    test('Must be able to create a new product', async () => {
+    it('Must be able to create a new product', async () => {
     
         const result = await createProductService(product)
 

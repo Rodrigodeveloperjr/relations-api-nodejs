@@ -18,7 +18,7 @@ describe('Testing user routes', () => {
 
     afterAll(async () => await connection.destroy())
 
-    test('GET /users -> Should be able to list multiple users', async () => {
+    it('GET /users -> Should be able to list multiple users', async () => {
 
         await request(app).post('/users').send(user)
 
@@ -33,7 +33,7 @@ describe('Testing user routes', () => {
         expect(response.body).toHaveLength(1)
     })
 
-    test('GET /users -> Should prevent listing users because the user has no token', async () => {
+    it('GET /users -> Should prevent listing users because the user has no token', async () => {
 
         const response = await request(app).get('/users')
 
@@ -41,7 +41,7 @@ describe('Testing user routes', () => {
         expect(response.body).toHaveProperty('message')
     })
 
-    test('GET /users -> Should prevent listing users because the user is disabled', async () => {
+    it('GET /users -> Should prevent listing users because the user is disabled', async () => {
 
         const user_response = await request(app).post('/users').send(user_two)
 

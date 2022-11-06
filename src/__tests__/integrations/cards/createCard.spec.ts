@@ -20,7 +20,7 @@ describe('Testing card routes', () => {
 
     afterAll(async () => await connection.destroy())
 
-    test('POST /cards -> Must be able to create a new card', async () => {
+    it('POST /cards -> Must be able to create a new card', async () => {
 
         const login = await request(app).post('/session').send(session)
 
@@ -37,7 +37,7 @@ describe('Testing card routes', () => {
         expect(response.body).toHaveProperty('cvc')
     })
     
-    test('POST /cards -> Should prevent to create a card without token', async () => {
+    it('POST /cards -> Should prevent to create a card without token', async () => {
 
         const response = await request(app).post('/cards').send(card)
 

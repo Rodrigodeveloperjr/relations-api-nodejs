@@ -20,7 +20,7 @@ describe('Testing product routes', () => {
 
     afterAll(async () => await connection.destroy())
 
-    test('DELETE /products/:id -> Must be able to delete product', async () => {
+    it('DELETE /products/:id -> Must be able to delete product', async () => {
 
         const login = await request(app).post('/session').send(session)
 
@@ -33,7 +33,7 @@ describe('Testing product routes', () => {
         expect(response.status).toBe(204)
     })
     
-    test('DELETE /products/:id -> Should avoid deletion a product without a token', async () => {
+    it('DELETE /products/:id -> Should avoid deletion a product without a token', async () => {
 
         const product_response = await request(app).post('/products').send(product)
 

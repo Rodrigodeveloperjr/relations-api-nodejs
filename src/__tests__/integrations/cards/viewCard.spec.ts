@@ -20,7 +20,7 @@ describe('Testing card routes', () => {
 
     afterAll(async () => await connection.destroy())
 
-    test('GET /cards/:id -> Must be able to view card', async () => {
+    it('GET /cards/:id -> Must be able to view card', async () => {
 
         const login = await request(app).post('/session').send(session)
 
@@ -39,7 +39,7 @@ describe('Testing card routes', () => {
         expect(response.body).toHaveProperty('cvc')
     })
     
-    test('GET /cards/:id -> Should avoid seeing a card without a token', async () => {
+    it('GET /cards/:id -> Should avoid seeing a card without a token', async () => {
 
         const card_response = await request(app).post('/cards').send(card)
 
@@ -49,7 +49,7 @@ describe('Testing card routes', () => {
         expect(response.body).toHaveProperty('message')
     })
 
-    test('GET /cards/:id -> Should avoid seeing a blocked card', async () => {
+    it('GET /cards/:id -> Should avoid seeing a blocked card', async () => {
 
         const login = await request(app).post('/session').send(session)
 

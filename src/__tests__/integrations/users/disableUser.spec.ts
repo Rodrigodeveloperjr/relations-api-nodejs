@@ -18,7 +18,7 @@ describe('Testing user routes', () => {
 
     afterAll(async () => await connection.destroy())
 
-    test('DELETE /users/:id -> Must be able to deactivate a user', async () => {
+    it('DELETE /users/:id -> Must be able to deactivate a user', async () => {
 
         const user_response = await request(app).post('/users').send(user)
 
@@ -31,7 +31,7 @@ describe('Testing user routes', () => {
         expect(response.status).toBe(204)
     })
 
-    test('DELETE /users/:id -> Should prevent deactivating a user without token', async () => {
+    it('DELETE /users/:id -> Should prevent deactivating a user without token', async () => {
 
         const user_response = await request(app).post('/users').send(user)
         
@@ -41,7 +41,7 @@ describe('Testing user routes', () => {
         expect(response.body).toHaveProperty('message')
     })
 
-    test('DELETE /users/:id -> Should be prevent deactivating an already deactivated user', async () => {
+    it('DELETE /users/:id -> Should be prevent deactivating an already deactivated user', async () => {
 
         const user_response = await request(app).post('/users').send(user)
 

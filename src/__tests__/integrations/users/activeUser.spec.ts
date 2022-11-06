@@ -18,7 +18,7 @@ describe('Testing user routes', () => {
 
     afterAll(async () => await connection.destroy())
 
-    test('POST /users/:id -> Must be able to activate a user', async () => {
+    it('POST /users/:id -> Must be able to activate a user', async () => {
 
         const user_response = await request(app).post('/users').send(user)
 
@@ -34,7 +34,7 @@ describe('Testing user routes', () => {
         expect(response.body).toHaveProperty('message')
     })
 
-    test('POST /users/:id -> Should prevent activation of a user without token', async () => {
+    it('POST /users/:id -> Should prevent activation of a user without token', async () => {
 
         const user_response = await request(app).post('/users').send(user)
         
@@ -44,7 +44,7 @@ describe('Testing user routes', () => {
         expect(response.body).toHaveProperty('message')
     })
     
-    test('POST /users/:id -> Should prevent activation of an already activated user', async () => {
+    it('POST /users/:id -> Should prevent activation of an already activated user', async () => {
 
         const user_response = await request(app).post('/users').send(user)
 

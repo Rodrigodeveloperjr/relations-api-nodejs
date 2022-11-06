@@ -20,7 +20,7 @@ describe('Testing card routes', () => {
 
     afterAll(async () => await connection.destroy())
 
-    test('DELETE /cards/:id -> Must be able to block card', async () => {
+    it('DELETE /cards/:id -> Must be able to block card', async () => {
 
         const login = await request(app).post('/session').send(session)
 
@@ -33,7 +33,7 @@ describe('Testing card routes', () => {
         expect(response.status).toBe(204)
     })
     
-    test('DELETE /cards/:id -> Should avoid blocking a card without a token', async () => {
+    it('DELETE /cards/:id -> Should avoid blocking a card without a token', async () => {
 
         const card_response = await request(app).post('/cards').send(card)
 
@@ -43,7 +43,7 @@ describe('Testing card routes', () => {
         expect(response.body).toHaveProperty('message')
     })
     
-    test('DELETE /cards/:id -> Must prevent blocking card already blocked', async () => {
+    it('DELETE /cards/:id -> Must prevent blocking card already blocked', async () => {
         
         const login = await request(app).post('/session').send(session)
 

@@ -18,7 +18,7 @@ describe('Testing user routes', () => {
 
     afterAll(async () => await connection.destroy())
 
-    test('GET /users/profile -> Must be able to see a user', async () => {
+    it('GET /users/profile -> Must be able to see a user', async () => {
 
         await request(app).post('/users').send(user)
 
@@ -43,7 +43,7 @@ describe('Testing user routes', () => {
         expect(response.body).toHaveProperty('products')
     })
 
-    test('GET /users/profile -> Should prevent seeing a user without token', async () => {
+    it('GET /users/profile -> Should prevent seeing a user without token', async () => {
         
         const response = await request(app).get('/users/profile/')
 

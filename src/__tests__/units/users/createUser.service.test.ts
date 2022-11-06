@@ -17,7 +17,7 @@ describe('Tests for user service', () => {
 
     afterAll(async () => await connection.destroy())
 
-    test('Must be able to create a new user', async () => {
+    it('Must be able to create a new user', async () => {
     
         const result = await createUserService(user)
 

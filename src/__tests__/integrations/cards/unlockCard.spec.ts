@@ -20,7 +20,7 @@ describe('Testing card routes', () => {
 
     afterAll(async () => await connection.destroy())
 
-    test('POST /cards/:id -> Must be able to unlock card', async () => {
+    it('POST /cards/:id -> Must be able to unlock card', async () => {
 
         const login = await request(app).post('/session').send(session)
 
@@ -36,7 +36,7 @@ describe('Testing card routes', () => {
         expect(response.body).toHaveProperty('message')
     })
     
-    test('POST /cards/:id -> Should avoid unlocking a card without a token', async () => {
+    it('POST /cards/:id -> Should avoid unlocking a card without a token', async () => {
 
         const card_response = await request(app).post('/cards').send(card)
 
@@ -46,7 +46,7 @@ describe('Testing card routes', () => {
         expect(response.body).toHaveProperty('message')
     })
     
-    test('POST /cards/:id -> Must prevent unlocking card already unlock', async () => {
+    it('POST /cards/:id -> Must prevent unlocking card already unlock', async () => {
         
         const login = await request(app).post('/session').send(session)
 

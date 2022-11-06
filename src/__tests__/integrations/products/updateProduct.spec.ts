@@ -20,7 +20,7 @@ describe('Testing product routes', () => {
 
     afterAll(async () => await connection.destroy())
 
-    test('PATCH /products/:id -> Must be able to update a user', async () => {
+    it('PATCH /products/:id -> Must be able to update a user', async () => {
 
         const login = await request(app).post('/session').send(session)
 
@@ -38,7 +38,7 @@ describe('Testing product routes', () => {
         expect(response.body).toHaveProperty('categorie')
     })
 
-    test('PATCH /products/:id -> Should prevent updating a user with no token', async () => {
+    it('PATCH /products/:id -> Should prevent updating a user with no token', async () => {
 
         const product_response = await request(app).post('/products').send(product)
         

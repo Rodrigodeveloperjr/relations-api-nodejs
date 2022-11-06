@@ -1,7 +1,7 @@
-import { AppDataSource } from '../../../data-source'
-import { DataSource } from 'typeorm'
-import { plan } from '../../mocks'
-import { createPlanService } from '../../../services/plans/createPlan.service'
+import { createPlanService } from "../../../services/plans/createPlan.service"
+import { AppDataSource } from "../../../data-source"
+import { DataSource } from "typeorm"
+import { plan } from "../../mocks"
 
 
 describe('Tests for plan service', () => {
@@ -17,7 +17,7 @@ describe('Tests for plan service', () => {
 
     afterAll(async () => await connection.destroy())
 
-    test('Must be able to create a new plan', async () => {
+    it('Must be able to create a new plan', async () => {
     
         const result = await createPlanService(plan)
 

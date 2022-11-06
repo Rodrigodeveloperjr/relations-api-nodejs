@@ -18,7 +18,7 @@ describe('Testing user routes', () => {
 
     afterAll(async () => await connection.destroy())
 
-    test('POST /users -> Must be able to create a new user', async () => {
+    it('POST /users -> Must be able to create a new user', async () => {
         
         const response = await request(app).post('/users').send(user)
 
@@ -34,7 +34,7 @@ describe('Testing user routes', () => {
         expect(response.body).toHaveProperty('updated_at')
     })
     
-    test('POST /users -> Should prevent creating a new user with already existing email', async () => {
+    it('POST /users -> Should prevent creating a new user with already existing email', async () => {
         
         const response = await request(app).post('/users').send(user)
 
@@ -42,7 +42,7 @@ describe('Testing user routes', () => {
         expect(response.body).toHaveProperty('message')
     })
 
-    test('POST /users -> Should prevent creating a new user with already existing cpf', async () => {
+    it('POST /users -> Should prevent creating a new user with already existing cpf', async () => {
         
         user.email = 'example2@org.com.br'
 

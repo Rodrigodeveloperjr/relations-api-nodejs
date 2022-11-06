@@ -20,7 +20,7 @@ describe('Testing session routes', () => {
 
     afterAll(async () => await connection.destroy())
 
-    test('POST /session -> Must be able to create a session', async () => {
+    it('POST /session -> Must be able to create a session', async () => {
 
         const response = await request(app).post('/session').send(session)
 
@@ -28,7 +28,7 @@ describe('Testing session routes', () => {
         expect(response.body).toHaveProperty('token')
     })
     
-    test('POST /session -> Should prevent the creation of a session if the credentials are wrong', async () => {
+    it('POST /session -> Should prevent the creation of a session if the credentials are wrong', async () => {
 
         const response = await request(app).post('/session').send(invalid_session)
 

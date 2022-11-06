@@ -1,8 +1,8 @@
-import { AppDataSource } from '../../../data-source'
-import { DataSource } from 'typeorm'
-import { card } from '../../mocks'
-import { createCardService } from '../../../services/cards/createCard.service'
-import { viewCardService } from '../../../services/cards/viewCard.service'
+import { createCardService } from "../../../services/cards/createCard.service"
+import { viewCardService } from "../../../services/cards/viewCard.service"
+import { AppDataSource } from "../../../data-source"
+import { DataSource } from "typeorm"
+import { card } from "../../mocks"
 
 
 describe('Tests for card service', () => {
@@ -18,7 +18,7 @@ describe('Tests for card service', () => {
 
     afterAll(async () => await connection.destroy())
 
-    test('Must be able to see a card', async () => {
+    it('Must be able to see a card', async () => {
     
         const result_card = await createCardService(card)
 
