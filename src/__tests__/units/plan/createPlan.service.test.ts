@@ -1,7 +1,7 @@
 import { createPlanService } from "../../../services/plans/createPlan.service"
 import { AppDataSource } from "../../../data-source"
 import { DataSource } from "typeorm"
-import { plan } from "../../mocks"
+import { plan } from "../../../mocks"
 
 
 describe('Tests for plan service', () => {

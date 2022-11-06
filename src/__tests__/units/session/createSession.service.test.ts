@@ -1,7 +1,7 @@
 import { createSessionService } from "../../../services/session/createSession.service"
 import { createUserService } from "../../../services/users/createUser.service"
 import { AppDataSource } from "../../../data-source"
-import { session, user } from "../../mocks"
+import { session, user } from "../../../mocks"
 import { DataSource } from "typeorm"
 
 

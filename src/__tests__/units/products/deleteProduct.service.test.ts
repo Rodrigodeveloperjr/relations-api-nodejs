@@ -1,7 +1,7 @@
 import { createProductService } from "../../../services/products/createProduct.service"
 import { deleteProductService } from "../../../services/products/deleteProduct.service"
 import { AppDataSource } from "../../../data-source"
-import { product } from "../../mocks"
+import { product } from "../../../mocks"
 import { DataSource } from "typeorm"
 
 

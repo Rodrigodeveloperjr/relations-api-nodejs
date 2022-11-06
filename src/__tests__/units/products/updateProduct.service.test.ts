@@ -1,6 +1,6 @@
 import { createProductService } from "../../../services/products/createProduct.service"
 import { updateProductService } from "../../../services/products/updateProduct.service"
-import { product, updated_product } from "../../mocks"
+import { product, updated_product } from "../../../mocks"
 import { AppDataSource } from "../../../data-source"
 import { DataSource } from "typeorm"
 

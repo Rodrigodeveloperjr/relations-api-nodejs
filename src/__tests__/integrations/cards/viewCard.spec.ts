@@ -1,5 +1,5 @@
 import { AppDataSource } from "../../../data-source"
-import { card, session, user } from "../../mocks"
+import { card, session, user } from "../../../mocks"
 import { DataSource } from "typeorm"
 import { app } from "../../../app"
 import request from "supertest"

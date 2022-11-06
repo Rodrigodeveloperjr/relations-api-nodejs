@@ -1,7 +1,7 @@
 import { createUserService } from "../../../services/users/createUser.service"
 import { updateUserService } from "../../../services/users/updateUser.service"
 import { AppDataSource } from "../../../data-source"
-import { updated_user, user } from "../../mocks"
+import { updated_user, user } from "../../../mocks"
 import { DataSource } from "typeorm"
 
 

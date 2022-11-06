@@ -2,7 +2,7 @@ import { createCardService } from "../../../services/cards/createCard.service"
 import { unlockCardService } from "../../../services/cards/unlockCard.service"
 import { AppDataSource } from "../../../data-source"
 import { DataSource } from "typeorm"
-import { card } from "../../mocks"
+import { card } from "../../../mocks"
 
 
 describe('Tests for card service', () => {

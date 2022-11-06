@@ -1,4 +1,4 @@
-import { user, session, updated_user, user_two, session_two } from "../../mocks"
+import { user, session, updated_user, user_two, session_two } from "../../../mocks"
 import { AppDataSource } from "../../../data-source"
 import { DataSource } from "typeorm"
 import { app } from "../../../app"

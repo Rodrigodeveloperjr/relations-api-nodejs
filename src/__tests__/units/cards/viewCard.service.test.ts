@@ -2,7 +2,7 @@ import { createCardService } from "../../../services/cards/createCard.service"
 import { viewCardService } from "../../../services/cards/viewCard.service"
 import { AppDataSource } from "../../../data-source"
 import { DataSource } from "typeorm"
-import { card } from "../../mocks"
+import { card } from "../../../mocks"
 
 
 describe('Tests for card service', () => {

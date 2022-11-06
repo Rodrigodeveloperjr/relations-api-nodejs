@@ -2,7 +2,7 @@ import { disableUserService } from "../../../services/users/disableUser.service"
 import { createUserService } from "../../../services/users/createUser.service"
 import { AppDataSource } from "../../../data-source"
 import { DataSource } from "typeorm"
-import { user } from "../../mocks"
+import { user } from "../../../mocks"
 
 
 describe('Tests for user service', () => {

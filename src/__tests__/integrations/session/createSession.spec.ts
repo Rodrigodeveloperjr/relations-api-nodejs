@@ -1,4 +1,4 @@
-import { invalid_session, session, user } from "../../mocks"
+import { invalid_session, session, user } from "../../../mocks"
 import { AppDataSource } from "../../../data-source"
 import { DataSource } from "typeorm"
 import { app } from "../../../app"

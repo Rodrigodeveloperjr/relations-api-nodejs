@@ -1,9 +1,9 @@
-import { IAddressRequest } from "../../interfaces/address"
-import { ICardRequest } from "../../interfaces/cards"
-import { IPlanRequest } from "../../interfaces/plans"
-import { IProductRequest } from "../../interfaces/products"
-import { ISessionRequest } from "../../interfaces/session"
-import { IUserRequest, IUserUpdateRequest } from "../../interfaces/users"
+import { IAddressRequest } from "../interfaces/address"
+import { ICardRequest } from "../interfaces/cards"
+import { IPlanRequest } from "../interfaces/plans"
+import { IProductRequest } from "../interfaces/products"
+import { ISessionRequest } from "../interfaces/session"
+import { IUserRequest, IUserUpdateRequest } from "../interfaces/users"
 
 
 const address: IAddressRequest = {
