@@ -14,16 +14,21 @@ import { isActiveMiddleware } from "../../middlewares/isActive.middleware"
 
 const routes = Router()
 
-const user_routes = () => {
+const userRoutes = () => {
 
     routes.post('', createUserController)
+    
     routes.get('', authTokenMiddleware, isDisableMiddleware, listUsersController)
+    
     routes.patch('/:id', authTokenMiddleware, isDisableMiddleware, updateUserController)
+    
     routes.delete('/:id', authTokenMiddleware, isDisableMiddleware, disableUserController)
+    
     routes.post('/:id', authTokenMiddleware, isActiveMiddleware, activeUserController)
+    
     routes.get('/profile', authTokenMiddleware, isDisableMiddleware, viewUserController)
 
     return routes
 }
 
-export { user_routes }
+export { userRoutes }

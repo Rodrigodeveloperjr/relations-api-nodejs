@@ -1,26 +1,13 @@
-import { createCardService } from "../../services/cards/createCard.service"
-import { ICardRequest } from "../../interfaces/cards"
-import { AppError, handleError } from "../../errors"
-import { Request, Response } from "express"
-
+import { createCardService } from "../../services/cards/createCard.service";
+import { ICardRequest } from "../../interfaces/cards";
+import { Request, Response } from "express";
 
 const createCardController = async (req: Request, res: Response) => {
+  const card: ICardRequest = req.body;
 
-    try {
+  const newCard = await createCardService(card);
 
-        const card: ICardRequest = req.body
+  return res.status(201).json(newCard);
+};
 
-        const new_card = await createCardService(card)
-
-        return res.status(201).json(new_card)
-
-    } catch(err) {
-
-        if(err instanceof AppError) {
-
-            handleError(err, res)
-        }
-    }
-}
-
-export { createCardController }
+export { createCardController };

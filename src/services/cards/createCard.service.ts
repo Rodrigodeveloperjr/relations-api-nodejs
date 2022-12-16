@@ -1,23 +1,21 @@
-import { ICardRequest } from "../../interfaces/cards"
-import { AppDataSource } from "../../data-source"
-import { Card } from "../../entities/cards"
+import { ICardRequest } from "../../interfaces/cards";
+import { AppDataSource } from "../../data-source";
+import { Card } from "../../entities/cards";
 
+const createCardService = async (card: ICardRequest): Promise<Card> => {
+  const cardRepository = AppDataSource.getRepository(Card);
 
-const createCardService = async ({ card_name, card_number, expiration_date, cvc, func }: ICardRequest): Promise<Card> => {
+  const newCard = new Card();
+  newCard.cardName = card.cardName;
+  newCard.cardNumber = card.cardNumber;
+  newCard.expirationDate = card.expirationDate;
+  newCard.cvc = card.cvc;
+  newCard.func = card.func;
 
-    const cardRepository = AppDataSource.getRepository(Card)
+  cardRepository.create(newCard);
+  await cardRepository.save(newCard);
 
-    const card = new Card()
-    card.card_name = card_name
-    card.card_number = card_number
-    card.expiration_date = expiration_date
-    card.cvc = cvc
-    card.func = func
+  return newCard;
+};
 
-    cardRepository.create(card)
-    await cardRepository.save(card)
-
-    return card
-}
-
-export { createCardService }
+export { createCardService };

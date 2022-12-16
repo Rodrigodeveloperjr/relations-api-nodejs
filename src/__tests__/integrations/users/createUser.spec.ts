@@ -1,54 +1,50 @@
-import { AppDataSource } from "../../../data-source"
-import { DataSource } from "typeorm"
-import { app } from "../../../app"
-import { user } from "../../../mocks"
-import request from "supertest"
+import { AppDataSource } from "../../../data-source";
+import { DataSource } from "typeorm";
+import { app } from "../../../app";
+import { user } from "../../../mocks";
+import request from "supertest";
 
+describe("Testing user routes", () => {
+  let connection: DataSource;
 
-describe('Testing user routes', () => {
+  beforeAll(async () => {
+    await AppDataSource.initialize()
+      .then((res) => (connection = res))
+      .catch((err) =>
+        console.error("Error during Data Source initialization", err)
+      );
+  });
 
-    let connection: DataSource
+  afterAll(async () => await connection.destroy());
 
-    beforeAll(async () => {
-        
-        await AppDataSource.initialize()
-        .then(res => connection = res)
-        .catch(err => console.error('Error during Data Source initialization', err))
-    })
+  it("POST /users -> Must be able to create a new user", async () => {
+    const response = await request(app).post("/users").send(user);
 
-    afterAll(async () => await connection.destroy())
+    expect(response.status).toBe(201);
 
-    it('POST /users -> Must be able to create a new user', async () => {
-        
-        const response = await request(app).post('/users').send(user)
+    expect(response.body).toHaveProperty("name");
+    expect(response.body).toHaveProperty("email");
+    expect(response.body).toHaveProperty("password");
+    expect(response.body).toHaveProperty("cpf");
+    expect(response.body).toHaveProperty("address");
+    expect(response.body).toHaveProperty("isActive");
+    expect(response.body).toHaveProperty("createdAt");
+    expect(response.body).toHaveProperty("updatedAt");
+  });
 
-        expect(response.status).toBe(201)
-        
-        expect(response.body).toHaveProperty('name')
-        expect(response.body).toHaveProperty('email')
-        expect(response.body).toHaveProperty('password')
-        expect(response.body).toHaveProperty('cpf')
-        expect(response.body).toHaveProperty('address')
-        expect(response.body).toHaveProperty('is_active')
-        expect(response.body).toHaveProperty('created_at')
-        expect(response.body).toHaveProperty('updated_at')
-    })
-    
-    it('POST /users -> Should prevent creating a new user with already existing email', async () => {
-        
-        const response = await request(app).post('/users').send(user)
+  it("POST /users -> Should prevent creating a new user with already existing email", async () => {
+    const response = await request(app).post("/users").send(user);
 
-        expect(response.status).toBe(400)
-        expect(response.body).toHaveProperty('message')
-    })
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty("message");
+  });
 
-    it('POST /users -> Should prevent creating a new user with already existing cpf', async () => {
-        
-        user.email = 'example2@org.com.br'
+  it("POST /users -> Should prevent creating a new user with already existing cpf", async () => {
+    user.email = "example2@org.com.br";
 
-        const response = await request(app).post('/users').send(user)
+    const response = await request(app).post("/users").send(user);
 
-        expect(response.status).toBe(400)
-        expect(response.body).toHaveProperty('message')
-    })
-})
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty("message");
+  });
+});

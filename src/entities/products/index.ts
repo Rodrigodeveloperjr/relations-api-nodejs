@@ -1,32 +1,21 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
-import { v4 as uuid } from "uuid"
+import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
-
-@Entity('products')
+@Entity("products")
 class Product {
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
 
-    @PrimaryGeneratedColumn('uuid')
-    readonly id: string
+  @Column()
+  title: string;
 
-    @Column()
-    title: string
-    
-    @Column()
-    description?: string
-    
-    @Column({ type: 'integer' })
-    price: number
-    
-    @Column()
-    categorie: string
-    
-    constructor() {
+  @Column()
+  description?: string;
 
-        if(!this.id) {
+  @Column({ type: "integer" })
+  price: number;
 
-            this.id = uuid()
-        }
-    }
+  @Column()
+  categorie: string;
 }
 
-export { Product }
+export { Product };

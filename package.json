@@ -6,10 +6,7 @@
   "scripts": {
     "dev": "ts-node-dev --ignore-watch node_modules src/server.ts",
     "typeorm": "typeorm-ts-node-commonjs",
-    "test": "cross-env NODE_ENV=test SECRET_KEY=#%s53w46#%6 jest",
-    "build": "tsc",
-    "start": "node dist/scr/server.js",
-    "type": "module"
+    "test": "cross-env NODE_ENV=test SECRET_KEY=secret_key jest"
   },
   "devDependencies": {
     "@types/apidoc": "^0.50.0",
@@ -34,6 +31,7 @@
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "express-async-errors": "^3.1.1",
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.8.0",
     "reflect-metadata": "^0.1.13",

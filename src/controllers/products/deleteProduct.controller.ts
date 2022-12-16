@@ -1,25 +1,12 @@
-import { deleteProductService } from "../../services/products/deleteProduct.service"
-import { AppError, handleError } from "../../errors"
-import { Request, Response } from "express"
-
+import { deleteProductService } from "../../services/products/deleteProduct.service";
+import { Request, Response } from "express";
 
 const deleteProductController = async (req: Request, res: Response) => {
+  const id: string = req.params.id;
 
-    try {
+  await deleteProductService(id);
 
-        const id: string = req.params.id
+  return res.status(204).json();
+};
 
-        await deleteProductService(id)
-
-        return res.status(204).json()
-
-    } catch(err) {
-
-        if(err instanceof AppError) {
-
-            handleError(err, res)
-        }
-    }
-}
-
-export { deleteProductController }
+export { deleteProductController };

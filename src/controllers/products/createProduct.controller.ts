@@ -1,26 +1,13 @@
-import { createProductService } from "../../services/products/createProduct.service"
-import { IProductRequest } from "../../interfaces/products"
-import { AppError, handleError } from "../../errors"
-import { Request, Response } from "express"
-
+import { createProductService } from "../../services/products/createProduct.service";
+import { IProductRequest } from "../../interfaces/products";
+import { Request, Response } from "express";
 
 const createProductController = async (req: Request, res: Response) => {
+  const product: IProductRequest = req.body;
 
-    try {
+  const newProduct = await createProductService(product);
 
-        const product: IProductRequest = req.body
+  return res.status(201).json(newProduct);
+};
 
-        const new_product = await createProductService(product)
-
-        return res.status(201).json(new_product)
-    
-    } catch(err) {
-
-        if(err instanceof AppError) {
-
-            handleError(err, res)
-        }
-    }
-}
-
-export { createProductController }
+export { createProductController };

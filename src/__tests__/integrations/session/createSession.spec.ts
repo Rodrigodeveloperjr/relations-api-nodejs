@@ -1,4 +1,4 @@
-import { invalid_session, session, user } from "../../../mocks"
+import { invalidSession, session, user } from "../../../mocks"
 import { AppDataSource } from "../../../data-source"
 import { DataSource } from "typeorm"
 import { app } from "../../../app"
@@ -30,7 +30,7 @@ describe('Testing session routes', () => {
     
     it('POST /session -> Should prevent the creation of a session if the credentials are wrong', async () => {
 
-        const response = await request(app).post('/session').send(invalid_session)
+        const response = await request(app).post('/session').send(invalidSession)
 
         expect(response.status).toBe(401)
         expect(response.body).toHaveProperty('message')

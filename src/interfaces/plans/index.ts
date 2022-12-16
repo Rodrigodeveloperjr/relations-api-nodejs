@@ -1,8 +1,8 @@
 interface IPlanRequest {
-    provider: string
-    plan_name: string
-    monthly_payment: number
-    signature_date: string
+  provider: string;
+  planName: string;
+  monthlyPayment: number;
+  signatureDate: string;
 }
 
-export { IPlanRequest }
+export { IPlanRequest };

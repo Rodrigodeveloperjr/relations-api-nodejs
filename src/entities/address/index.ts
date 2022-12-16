@@ -1,44 +1,33 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm"
-import { v4 as uuid } from "uuid"
+import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
-
-@Entity('address')
+@Entity("address")
 class Address {
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
 
-    @PrimaryGeneratedColumn()
-    id: string
+  @Column()
+  country: string;
 
-    @Column()
-    country: string
+  @Column()
+  state: string;
 
-    @Column()
-    state: string
-    
-    @Column()
-    city: string
-    
-    @Column()
-    district: string
-    
-    @Column()
-    road: string
-    
-    @Column()
-    number: number
-    
-    @Column()
-    complement?: string
+  @Column()
+  city: string;
 
-    @Column()
-    zip_code: number
+  @Column()
+  district: string;
 
-    constructor() {
+  @Column()
+  road: string;
 
-        if(!this.id) {
+  @Column()
+  number: number;
 
-            this.id = uuid()
-        }
-    }
+  @Column()
+  complement?: string;
+
+  @Column()
+  zipCode: number;
 }
 
-export { Address }
+export { Address };

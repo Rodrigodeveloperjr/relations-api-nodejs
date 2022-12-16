@@ -1,22 +1,22 @@
-import { IProductRequest } from "../../interfaces/products"
-import { AppDataSource } from "../../data-source"
-import { Product } from "../../entities/products"
+import { IProductRequest } from "../../interfaces/products";
+import { AppDataSource } from "../../data-source";
+import { Product } from "../../entities/products";
 
+const createProductService = async (
+  product: IProductRequest
+): Promise<Product> => {
+  const productRepository = AppDataSource.getRepository(Product);
 
-const createProductService = async ({ title, description, price, categorie }: IProductRequest): Promise<Product> => {
+  const newProduct = new Product();
+  newProduct.title = product.title;
+  newProduct.description = product.description;
+  newProduct.price = product.price;
+  newProduct.categorie = product.categorie;
 
-    const productRepository = AppDataSource.getRepository(Product)
+  productRepository.create(newProduct);
+  await productRepository.save(newProduct);
 
-    const product = new Product()
-    product.title = title
-    product.description = description
-    product.price = price
-    product.categorie = categorie
+  return newProduct;
+};
 
-    productRepository.create(product)
-    await productRepository.save(product)
-
-    return product
-}
-
-export { createProductService }
+export { createProductService };

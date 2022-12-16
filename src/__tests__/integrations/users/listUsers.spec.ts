@@ -1,4 +1,4 @@
-import { session, session_two, user, user_two } from "../../../mocks"
+import { session, sessionTwo, user, userTwo } from "../../../mocks"
 import { AppDataSource } from "../../../data-source"
 import { DataSource } from "typeorm"
 import { app } from "../../../app"
@@ -43,9 +43,9 @@ describe('Testing user routes', () => {
 
     it('GET /users -> Should prevent listing users because the user is disabled', async () => {
 
-        const user_response = await request(app).post('/users').send(user_two)
+        const user_response = await request(app).post('/users').send(userTwo)
 
-        const login = await request(app).post('/session').send(session_two)
+        const login = await request(app).post('/session').send(sessionTwo)
 
         const token = login.body.token
 

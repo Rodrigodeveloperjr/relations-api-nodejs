@@ -1,22 +1,23 @@
-import { Request, Response, NextFunction } from "express"
-import { AppDataSource } from "../data-source"
-import { User } from "../entities/users"
+import { Request, Response, NextFunction } from "express";
+import { AppDataSource } from "../data-source";
+import { User } from "../entities/users";
 
+const isDisableMiddleware = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const email: string = req.email;
 
-const isDisableMiddleware = async (req: Request, res: Response, next: NextFunction) => {
+  const userRepository = AppDataSource.getRepository(User);
 
-    const email: string = req.email
+  const user = await userRepository.findOneBy({ email });
 
-    const userRepository = AppDataSource.getRepository(User)
+  if (user!.isActive == false) {
+    return res.status(403).json({ message: "User is disabled" });
+  }
 
-    const user = await userRepository.findOneBy({ email })
+  next();
+};
 
-    if(user!.is_active == false) {
-
-        return res.status(403).json({ message: 'User is disabled' })
-    }
-
-    next()
-}
-
-export { isDisableMiddleware }
+export { isDisableMiddleware };

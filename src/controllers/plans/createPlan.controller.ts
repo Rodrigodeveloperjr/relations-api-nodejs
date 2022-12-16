@@ -1,26 +1,13 @@
-import { createPlanService } from "../../services/plans/createPlan.service"
-import { IPlanRequest } from "../../interfaces/plans"
-import { AppError, handleError } from "../../errors"
-import { Request, Response } from "express"
-
+import { createPlanService } from "../../services/plans/createPlan.service";
+import { IPlanRequest } from "../../interfaces/plans";
+import { Request, Response } from "express";
 
 const createPlanController = async (req: Request, res: Response) => {
+  const plan: IPlanRequest = req.body;
 
-    try {
+  const createdPlan = await createPlanService(plan);
 
-        const plan: IPlanRequest = req.body
+  return res.status(201).json(createdPlan);
+};
 
-        const created_plan = await createPlanService(plan)
-
-        return res.status(201).json(created_plan)
-        
-    } catch(err) {
-
-        if(err instanceof AppError) {
-
-            handleError(err, res)
-        }
-    }
-}
-
-export { createPlanController }
+export { createPlanController };

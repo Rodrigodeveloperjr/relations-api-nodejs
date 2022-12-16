@@ -1,14 +1,19 @@
-import { AppDataSource } from "../../data-source"
-import { User } from "../../entities/users"
-
+import { AppDataSource } from "../../data-source";
+import { User } from "../../entities/users";
+import { AppError } from "../../errors";
 
 const activeUserService = async (id: string): Promise<object> => {
+  const userRepository = AppDataSource.getRepository(User);
 
-    const userRepository = AppDataSource.getRepository(User)
-    
-    await userRepository.update(id, { is_active: true })
+  const user = await userRepository.findOneBy({ id });
 
-    return { message: 'User activated successfully' }
-}
+  if (!user) {
+    throw new AppError("User not found", 404);
+  }
 
-export { activeUserService }
+  await userRepository.update(user.id, { isActive: true });
+
+  return { message: "User activated successfully" };
+};
+
+export { activeUserService };

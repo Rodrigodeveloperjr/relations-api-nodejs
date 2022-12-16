@@ -1,42 +1,31 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm"
-import { v4 as uuid } from "uuid"
-import { User } from "../users"
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { User } from "../users";
 
-
-@Entity('cards')
+@Entity("cards")
 class Card {
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
 
-    @PrimaryGeneratedColumn('uuid')
-    readonly id: string
+  @Column()
+  cardName: string;
 
-    @Column()
-    card_name: string
-    
-    @Column({ length: 20 })
-    card_number: string
-    
-    @Column({ length: 5 })
-    expiration_date: string
-    
-    @Column()
-    cvc: number
-    
-    @Column()
-    func?: string
+  @Column({ length: 20 })
+  cardNumber: string;
 
-    @Column({ default: false })
-    is_blocked: boolean
+  @Column({ length: 5 })
+  expirationDate: string;
 
-    @ManyToOne(() => User, user => user.cards)
-    user: User
+  @Column()
+  cvc: number;
 
-    constructor() {
+  @Column()
+  func?: string;
 
-        if(!this.id) {
+  @Column({ default: false })
+  isBlocked: boolean;
 
-            this.id = uuid()
-        }
-    }
+  @ManyToOne(() => User, (user) => user.cards)
+  user: User;
 }
 
-export { Card }
+export { Card };

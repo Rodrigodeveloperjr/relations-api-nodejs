@@ -1,75 +1,63 @@
-import { AppDataSource } from "../../../data-source"
-import { session, user } from "../../../mocks"
-import { DataSource } from "typeorm"
-import { app } from "../../../app"
-import request from "supertest"
+import { AppDataSource } from "../../../data-source";
+import { session, sessionTwo, user, userTwo } from "../../../mocks";
+import { DataSource } from "typeorm";
+import { app } from "../../../app";
+import request from "supertest";
 
+describe("Testing user routes", () => {
+  let connection: DataSource;
 
-describe('Testing user routes', () => {
+  beforeAll(async () => {
+    await AppDataSource.initialize()
+      .then((res) => (connection = res))
+      .catch((err) =>
+        console.error("Error during Data Source initialization", err)
+      );
+  });
 
-    let connection: DataSource
+  afterAll(async () => await connection.destroy());
 
-    beforeAll(async () => {
-        
-        await AppDataSource.initialize()
-        .then(res => connection = res)
-        .catch(err => console.error('Error during Data Source initialization', err))
-    })
+  test("DELETE /users/:id -> Must be able to deactivate a user", async () => {
+    const userResponse = await request(app).post("/users").send(user);
 
-    afterAll(async () => await connection.destroy())
+    const login = await request(app).post("/session").send(session);
 
-    it('DELETE /users/:id -> Must be able to deactivate a user', async () => {
+    const token: string = login.body.token;
 
-        const user_response = await request(app).post('/users').send(user)
+    const response = await request(app)
+      .delete(`/users/${userResponse.body.id}`)
+      .set("Authorization", `Bearer ${token}`);
 
-        const login = await request(app).post('/session').send(session)
+    expect(response.status).toBe(204);
+  });
 
-        const token = login.body.token
-        
-        const response = await request(app).delete(`/users/${user_response.body.id}`).set('Authorization', `Bearer ${token}`)
+  test("DELETE /users/:id -> Should prevent deactivating a user without token", async () => {
+    const userResponse = await request(app).post("/users").send(user);
 
-        expect(response.status).toBe(204)
-    })
+    const response = await request(app).delete(
+      `/users/${userResponse.body.id}`
+    );
 
-    it('DELETE /users/:id -> Should prevent deactivating a user without token', async () => {
+    expect(response.status).toBe(401);
+    expect(response.body).toHaveProperty("message");
+  });
 
-        const user_response = await request(app).post('/users').send(user)
-        
-        const response = await request(app).delete(`/users/${user_response.body.id}`)
+  test("DELETE /users/:id -> Should be prevent deactivating an already deactivated user", async () => {
+    const userResponse = await request(app).post("/users").send(user);
 
-        expect(response.status).toBe(401)
-        expect(response.body).toHaveProperty('message')
-    })
+    const login = await request(app).post("/session").send(session);
 
-    it('DELETE /users/:id -> Should be prevent deactivating an already deactivated user', async () => {
+    const token: string = login.body.token;
 
-        const user_response = await request(app).post('/users').send(user)
+    await request(app)
+      .delete(`/users/${userResponse.body.id}`)
+      .set("Authorization", `Bearer ${token}`);
 
-        const login = await request(app).post('/session').send(session)
+    const response = await request(app)
+      .delete(`/users/${userResponse.body.id}`)
+      .set("Authorization", `Bearer ${token}`);
 
-        const token = login.body.token
-        
-        await request(app).delete(`/users/${user_response.body.id}`).set('Authorization', `Bearer ${token}`)
-        
-        const response = await request(app).delete(`/users/${user_response.body.id}`).set('Authorization', `Bearer ${token}`)
-
-        expect(response.status).toBe(403)
-        expect(response.body).toHaveProperty('message')
-
-    })
-    /*
-    test('DELETE /users/:id -> Should prevent deactivating a non-existent user', async () => {
-
-        await request(app).post('/users').send(user_two)
-
-        const login = await request(app).post('/login').send(session_two)
-
-        const token = login.body.token
-        
-        const response = await request(app).delete('/users/1').set('Authorization', `Bearer ${token}`)
-
-        expect(response.status).toBe(404)
-        expect(response.body).toHaveProperty('message')
-    })
-    */
-})
+    expect(response.status).toBe(403);
+    expect(response.body).toHaveProperty("message");
+  });
+});

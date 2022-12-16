@@ -33,9 +33,9 @@ describe('Testing card routes', () => {
         expect(response.status).toBe(200)
         
         expect(response.body).toHaveProperty('id')
-        expect(response.body).toHaveProperty('card_name')
-        expect(response.body).toHaveProperty('card_number')
-        expect(response.body).toHaveProperty('expiration_date')
+        expect(response.body).toHaveProperty('cardName')
+        expect(response.body).toHaveProperty('cardNumber')
+        expect(response.body).toHaveProperty('expirationDate')
         expect(response.body).toHaveProperty('cvc')
     })
     

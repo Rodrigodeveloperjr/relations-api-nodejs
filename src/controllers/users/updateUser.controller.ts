@@ -1,28 +1,15 @@
-import { updateUserService } from "../../services/users/updateUser.service"
-import { IUserUpdateRequest } from "../../interfaces/users"
-import { AppError, handleError } from "../../errors"
-import { Request, Response } from "express"
-
+import { updateUserService } from "../../services/users/updateUser.service";
+import { IUserUpdateRequest } from "../../interfaces/users";
+import { Request, Response } from "express";
 
 const updateUserController = async (req: Request, res: Response) => {
+  const id: string = req.params.id;
 
-   try {
+  const user: IUserUpdateRequest = req.body;
 
-        const id: string = req.params.id
+  const updatedUser = await updateUserService(user, id);
 
-        const user: IUserUpdateRequest = req.body
+  return res.json(updatedUser);
+};
 
-        const updated_user = await updateUserService(user, id)
-
-        return res.json(updated_user)
-  
-    } catch(err) {
-
-        if(err instanceof AppError) {
-
-            handleError(err, res)
-        }
-    }
-}
-
-export { updateUserController }
+export { updateUserController };

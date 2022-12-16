@@ -1,4 +1,4 @@
-import { user, session, product, updated_product } from "../../../mocks"
+import { user, session, product, updatedProduct } from "../../../mocks"
 import { AppDataSource } from "../../../data-source"
 import { DataSource } from "typeorm"
 import { app } from "../../../app"
@@ -28,7 +28,7 @@ describe('Testing product routes', () => {
 
         const product_response = await request(app).post('/products').send(product).set('Authorization', `Bearer ${token}`)
         
-        const response = await request(app).patch(`/products/${product_response.body.id}`).send(updated_product).set('Authorization', `Bearer ${token}`)
+        const response = await request(app).patch(`/products/${product_response.body.id}`).send(updatedProduct).set('Authorization', `Bearer ${token}`)
 
         expect(response.status).toBe(200)
     
@@ -42,7 +42,7 @@ describe('Testing product routes', () => {
 
         const product_response = await request(app).post('/products').send(product)
         
-        const response = await request(app).patch(`/products/${product_response.body.id}`).send(updated_product)
+        const response = await request(app).patch(`/products/${product_response.body.id}`).send(updatedProduct)
 
         expect(response.status).toBe(401)
         expect(response.body).toHaveProperty('message')

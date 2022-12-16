@@ -1,26 +1,32 @@
-import { IUserUpdateRequest } from "../../interfaces/users"
-import { AppDataSource } from "../../data-source"
-import { User } from "../../entities/users"
-import { hash } from "bcrypt"
+import { IUserUpdateRequest } from "../../interfaces/users";
+import { AppDataSource } from "../../data-source";
+import { User } from "../../entities/users";
+import { AppError } from "../../errors";
+import { hash } from "bcrypt";
 
+const updateUserService = async (
+  user: IUserUpdateRequest,
+  id: string
+): Promise<User> => {
+  const userRepository = AppDataSource.getRepository(User);
 
-const updateUserService = async ({ name, email, password, cpf, address }: IUserUpdateRequest, id: string): Promise<User> => {
+  const findUser = await userRepository.findOneBy({ id });
 
-    const userRepository = AppDataSource.getRepository(User)
+  if (!findUser) {
+    throw new AppError("User not found", 404);
+  }
 
-    const find_user = await userRepository.findOneBy({ id })
+  await userRepository.update(id, {
+    name: user.name ? user.name : findUser.name,
+    email: user.email ? user.email : findUser.email,
+    password: user.password ? await hash(user.password, 10) : findUser.password,
+    cpf: user.cpf ? user.cpf : findUser.cpf,
+    address: user.address ? user.address : findUser.address,
+  });
 
-    await userRepository.update(id, {
-        name: name ? name : find_user!.name,
-        email: email ? email : find_user!.email,
-        password: password ? await hash(password, 10) : find_user!.password,
-        cpf: cpf ? cpf : find_user!.cpf,
-        address: address ? address : find_user!.address
-    })
+  const updatedUser = await userRepository.findOneBy({ id });
 
-    const user = await userRepository.findOneBy({ id })
+  return updatedUser!;
+};
 
-    return user!
-}
-
-export { updateUserService }
+export { updateUserService };

@@ -32,9 +32,9 @@ describe('Testing plan routes', () => {
     
         expect(response.body).toHaveProperty('id')
         expect(response.body).toHaveProperty('provider')
-        expect(response.body).toHaveProperty('plan_name')
-        expect(response.body).toHaveProperty('monthly_payment')
-        expect(response.body).toHaveProperty('signature_date')
+        expect(response.body).toHaveProperty('planName')
+        expect(response.body).toHaveProperty('monthlyPayment')
+        expect(response.body).toHaveProperty('signatureDate')
     })
     
     it('POST /plans -> Should prevent to create a plan without token', async () => {

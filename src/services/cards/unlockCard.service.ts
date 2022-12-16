@@ -1,14 +1,19 @@
-import { AppDataSource } from "../../data-source"
-import { Card } from "../../entities/cards"
-
+import { AppDataSource } from "../../data-source";
+import { Card } from "../../entities/cards";
+import { AppError } from "../../errors";
 
 const unlockCardService = async (id: string): Promise<object> => {
+  const cardRepository = AppDataSource.getRepository(Card);
 
-    const cardRepository = AppDataSource.getRepository(Card)
+  const card = await cardRepository.findOneBy({ id });
 
-    await cardRepository.update(id, { is_blocked: false })
+  if (!card) {
+    throw new AppError("Card not found", 404);
+  }
 
-    return { message: 'Card unlocked successfully' }
-}
+  await cardRepository.update(card.id, { isBlocked: false });
 
-export { unlockCardService }
+  return { message: "Card unlocked successfully" };
+};
+
+export { unlockCardService };

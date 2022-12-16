@@ -1,22 +1,20 @@
-import { IPlanRequest } from "../../interfaces/plans"
-import { AppDataSource } from "../../data-source"
-import { Plan } from "../../entities/plans"
+import { IPlanRequest } from "../../interfaces/plans";
+import { AppDataSource } from "../../data-source";
+import { Plan } from "../../entities/plans";
 
+const createPlanService = async (plan: IPlanRequest): Promise<Plan> => {
+  const planRepository = AppDataSource.getRepository(Plan);
 
-const createPlanService = async ({ provider, plan_name, monthly_payment, signature_date }: IPlanRequest): Promise<Plan> => {
+  const newPlan = new Plan();
+  newPlan.provider = plan.provider;
+  newPlan.planName = plan.planName;
+  newPlan.monthlyPayment = plan.monthlyPayment;
+  newPlan.signatureDate = plan.signatureDate;
 
-    const planRepository = AppDataSource.getRepository(Plan)
+  planRepository.create(newPlan);
+  await planRepository.save(newPlan);
 
-    const plan = new Plan()
-    plan.provider = provider
-    plan.plan_name = plan_name
-    plan.monthly_payment = monthly_payment
-    plan.signature_date = signature_date
+  return newPlan;
+};
 
-    planRepository.create(plan)
-    await planRepository.save(plan)
-    
-    return plan
-}
-
-export { createPlanService }
+export { createPlanService };

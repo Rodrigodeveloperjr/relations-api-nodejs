@@ -1,25 +1,12 @@
-import { viewCardService } from "../../services/cards/viewCard.service"
-import { AppError, handleError } from "../../errors"
-import { Request, Response } from "express"
-
+import { viewCardService } from "../../services/cards/viewCard.service";
+import { Request, Response } from "express";
 
 const viewCardController = async (req: Request, res: Response) => {
+  const id: string = req.params.id;
 
-    try {
+  const viewCard = await viewCardService(id);
 
-        const id: string = req.params.id
+  return res.json(viewCard);
+};
 
-        const view_card = await viewCardService(id)
-
-        return res.json(view_card)
-
-    } catch(err) {
-
-        if(err instanceof AppError) {
-
-            handleError(err, res)
-        }
-    }
-}
-
-export { viewCardController }
+export { viewCardController };

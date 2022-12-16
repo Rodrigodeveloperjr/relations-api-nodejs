@@ -1,24 +1,32 @@
-import { Request, Response, NextFunction } from "express"
-import jwt from "jsonwebtoken"
+import { Request, Response, NextFunction } from "express";
+import jwt from "jsonwebtoken";
 
+const authTokenMiddleware = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  let token = req.headers.authorization;
 
-const authTokenMiddleware = async (req: Request, res: Response, next: NextFunction) => {
+  if (!token || !token.includes("Bearer")) {
+    return res.status(401).json({ message: "Invalid token" });
+  }
 
-    let token = req.headers.authorization
+  token = token.split(" ")[1];
 
-    if(!token) {
+  jwt.verify(
+    token,
+    process.env.SECRET_KEY as string,
+    (error: any, decoded: any) => {
+      if (error) {
+        return res.status(401).json({ message: "Invalid token" });
+      }
 
-        return res.status(401).json({ message: 'Invalid token' })
+      req.email = decoded.email;
+
+      next();
     }
+  );
+};
 
-    token = token.split(' ')[1]
-
-    jwt.verify(token, process.env.SECRET_KEY as string, (error: any, decoded: any) => {
-        
-        req.email = decoded.email
-
-        next()
-    })
-}
-
-export { authTokenMiddleware }
+export { authTokenMiddleware };

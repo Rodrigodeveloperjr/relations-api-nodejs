@@ -1,15 +1,15 @@
-import errorMiddleware from "./middlewares/error.middleware"
-import { app_routes } from "./routes"
-import express from "express"
-import "dotenv/config"
+import { handleErrorMiddleware } from "./middlewares/handleError.middleware";
+import { appRoutes } from "./routes";
+import express from "express";
+import "express-async-errors";
+import "dotenv/config";
 
+const app = express();
 
-const app = express()
+app.use(express.json());
 
-app.use(express.json())
+appRoutes(app);
 
-app_routes(app)
+app.use(handleErrorMiddleware);
 
-errorMiddleware(app)
-
-export { app }
+export { app };

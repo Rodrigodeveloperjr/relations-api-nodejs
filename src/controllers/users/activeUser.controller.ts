@@ -1,25 +1,12 @@
-import { activeUserService } from "../../services/users/activeUser.service"
-import { AppError, handleError } from "../../errors"
-import { Request, Response } from "express"
-
+import { activeUserService } from "../../services/users/activeUser.service";
+import { Request, Response } from "express";
 
 const activeUserController = async (req: Request, res: Response) => {
+  const id: string = req.params.id;
 
-    try {
+  const activeUser = await activeUserService(id);
 
-        const id: string = req.params.id
+  return res.json(activeUser);
+};
 
-        const active_user = await activeUserService(id)
-
-        return res.json(active_user)
-    
-    } catch(err) {
-
-        if(err instanceof AppError) {
-
-            handleError(err, res)
-        }
-    }
-}
-
-export { activeUserController }
+export { activeUserController };

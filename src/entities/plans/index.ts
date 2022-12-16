@@ -1,32 +1,21 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
-import { v4 as uuid } from "uuid"
+import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
-
-@Entity('plan')
+@Entity("plans")
 class Plan {
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
 
-    @PrimaryGeneratedColumn('uuid')
-    readonly id: string
+  @Column()
+  provider: string;
 
-    @Column()
-    provider: string
+  @Column()
+  planName: string;
 
-    @Column()
-    plan_name: string
-    
-    @Column({ type: 'integer' })
-    monthly_payment: number
-    
-    @Column()
-    signature_date: string
-    
-    constructor() {
+  @Column({ type: "integer" })
+  monthlyPayment: number;
 
-        if(!this.id) {
-
-            this.id = uuid()
-        }
-    }
+  @Column()
+  signatureDate: string;
 }
 
-export { Plan }
+export { Plan };

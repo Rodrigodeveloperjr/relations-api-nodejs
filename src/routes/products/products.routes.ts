@@ -1,21 +1,21 @@
-import { Router } from "express"
+import { Router } from "express";
 
-import { createProductController } from "../../controllers/products/createProduct.controller"
-import { deleteProductController } from "../../controllers/products/deleteProduct.controller"
-import { updateProductController } from "../../controllers/products/updateProduct.controller"
+import { createProductController } from "../../controllers/products/createProduct.controller";
+import { deleteProductController } from "../../controllers/products/deleteProduct.controller";
+import { updateProductController } from "../../controllers/products/updateProduct.controller";
 
-import { authTokenMiddleware } from "../../middlewares/authToken.middleware"
+import { authTokenMiddleware } from "../../middlewares/authToken.middleware";
 
+const routes = Router();
 
-const routes = Router()
+const productsRoutes = () => {
+  routes.post("", authTokenMiddleware, createProductController);
 
-const products_routes = () => {
+  routes.delete("/:id", authTokenMiddleware, deleteProductController);
 
-    routes.post('', authTokenMiddleware, createProductController)
-    routes.delete('/:id', authTokenMiddleware, deleteProductController)
-    routes.patch('/:id', authTokenMiddleware, updateProductController)
+  routes.patch("/:id", authTokenMiddleware, updateProductController);
 
-    return routes
-}
+  return routes;
+};
 
-export { products_routes }
+export { productsRoutes };
