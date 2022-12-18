@@ -1,14 +1,12 @@
+import { cardRepository } from "../../repositories/cardRepository";
 import { ICardRequest } from "../../interfaces/cards";
-import { AppDataSource } from "../../data-source";
 import { Card } from "../../entities/cards";
 
 const createCardService = async (card: ICardRequest): Promise<Card> => {
-  const cardRepository = AppDataSource.getRepository(Card);
-
   const newCard = new Card();
-  newCard.cardName = card.cardName;
-  newCard.cardNumber = card.cardNumber;
-  newCard.expirationDate = card.expirationDate;
+  newCard.card_name = card.cardName;
+  newCard.card_number = card.cardNumber;
+  newCard.expiration_date = card.expirationDate;
   newCard.cvc = card.cvc;
   newCard.func = card.func;
 

@@ -1,5 +1,5 @@
+import { userRepository } from "../../repositories/userRepository";
 import { IUserUpdateRequest } from "../../interfaces/users";
-import { AppDataSource } from "../../data-source";
 import { User } from "../../entities/users";
 import { AppError } from "../../errors";
 import { hash } from "bcrypt";
@@ -8,8 +8,6 @@ const updateUserService = async (
   user: IUserUpdateRequest,
   id: string
 ): Promise<User> => {
-  const userRepository = AppDataSource.getRepository(User);
-
   const findUser = await userRepository.findOneBy({ id });
 
   if (!findUser) {

@@ -15,7 +15,7 @@ class Product {
   price: number;
 
   @Column()
-  categorie: string;
+  category: string;
 }
 
 export { Product };

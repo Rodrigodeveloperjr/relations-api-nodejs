@@ -1,9 +1,7 @@
-import { AppDataSource } from "../../data-source";
+import { userRepository } from "../../repositories/userRepository";
 import { User } from "../../entities/users";
 
 const listUsersService = async (): Promise<User[]> => {
-  const userRepository = AppDataSource.getRepository(User);
-
   const users = await userRepository.find();
 
   return users;

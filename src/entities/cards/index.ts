@@ -7,13 +7,13 @@ class Card {
   id: string;
 
   @Column()
-  cardName: string;
+  card_name: string;
 
   @Column({ length: 20 })
-  cardNumber: string;
+  card_number: string;
 
   @Column({ length: 5 })
-  expirationDate: string;
+  expiration_date: string;
 
   @Column()
   cvc: number;
@@ -22,7 +22,7 @@ class Card {
   func?: string;
 
   @Column({ default: false })
-  isBlocked: boolean;
+  is_blocked: boolean;
 
   @ManyToOne(() => User, (user) => user.cards)
   user: User;

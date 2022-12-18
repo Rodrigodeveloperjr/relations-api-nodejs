@@ -13,11 +13,15 @@ import { cardSchema } from "../../schemas/card.schema";
 const routes = Router();
 
 const cardsRoutes = () => {
-  routes.post("", authTokenMiddleware, createCardController);
+  routes.post(
+    "",
+    schemaValidationMiddleware(cardSchema),
+    authTokenMiddleware,
+    createCardController
+  );
 
   routes.get(
     "/:id",
-    schemaValidationMiddleware(cardSchema),
     authTokenMiddleware,
     isBlockedMiddleware,
     viewCardController

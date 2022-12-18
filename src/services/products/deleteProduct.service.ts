@@ -1,10 +1,7 @@
-import { Product } from "../../entities/products";
-import { AppDataSource } from "../../data-source";
+import { productRepository } from "../../repositories/productRepository";
 import { AppError } from "../../errors";
 
 const deleteProductService = async (id: string): Promise<void> => {
-  const productRepository = AppDataSource.getRepository(Product);
-
   const product = await productRepository.findOneBy({ id });
 
   if (!product) {

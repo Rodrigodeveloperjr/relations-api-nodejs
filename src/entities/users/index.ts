@@ -41,13 +41,16 @@ class User {
   address: Address;
 
   @Column({ default: true })
-  isActive: boolean;
+  is_active: boolean;
+
+  @Column()
+  is_adm: boolean;
 
   @CreateDateColumn()
-  createdAt: Date;
+  created_at: Date;
 
   @UpdateDateColumn()
-  updatedAt: Date;
+  updated_at: Date;
 
   @OneToOne(() => Plan, { eager: true })
   @JoinColumn()

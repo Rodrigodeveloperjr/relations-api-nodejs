@@ -79,14 +79,14 @@ const product: IProductRequest = {
   title: "cap",
   description: "high cap",
   price: 289.0,
-  categorie: "caps",
+  category: "caps",
 };
 
 const updatedProduct: IProductRequest = {
   title: "jacket",
   description: "high jacket",
   price: 489.0,
-  categorie: "jackets",
+  category: "jackets",
 };
 
 export {

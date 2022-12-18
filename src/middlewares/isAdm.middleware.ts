@@ -10,8 +10,8 @@ const isActiveMiddleware = async (
 
   const user = await userRepository.findOneBy({ email });
 
-  if (!user!.is_active) {
-    return res.status(403).json({ message: "Disabled user" });
+  if (!user!.is_adm) {
+    return res.status(403).json({ message: "This user is not an admin" });
   }
 
   next();
