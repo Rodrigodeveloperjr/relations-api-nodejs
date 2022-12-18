@@ -2,14 +2,14 @@ interface IProductRequest {
   title: string;
   description?: string;
   price: number;
-  categorie: string;
+  category: string;
 }
 
 interface IProductUpdateRequest {
   title?: string;
   description?: string;
   price?: number;
-  categorie?: string;
+  category?: string;
 }
 
 export { IProductRequest, IProductUpdateRequest };

@@ -2,12 +2,13 @@ import { Router } from "express";
 
 import { blockedCardController } from "../../controllers/cards/blockedCard.controller";
 import { createCardController } from "../../controllers/cards/createCard.controller";
+import { unlockCardController } from "../../controllers/cards/unlockCard.controller";
 import { viewCardController } from "../../controllers/cards/viewCard.controller";
 
-import { unlockCardController } from "../../controllers/cards/unlockCard.controller";
+import { schemaValidationMiddleware } from "../../middlewares/schemaValidation.middleware";
 import { authTokenMiddleware } from "../../middlewares/authToken.middleware";
 import { isBlockedMiddleware } from "../../middlewares/isBlocked.middleware";
-import { isUnlockMiddleware } from "../../middlewares/isUnlock.middleware";
+import { cardSchema } from "../../schemas/card.schema";
 
 const routes = Router();
 
@@ -16,6 +17,7 @@ const cardsRoutes = () => {
 
   routes.get(
     "/:id",
+    schemaValidationMiddleware(cardSchema),
     authTokenMiddleware,
     isBlockedMiddleware,
     viewCardController
@@ -28,12 +30,7 @@ const cardsRoutes = () => {
     blockedCardController
   );
 
-  routes.post(
-    "/:id",
-    authTokenMiddleware,
-    isUnlockMiddleware,
-    unlockCardController
-  );
+  routes.post("/:id", authTokenMiddleware, unlockCardController);
 
   return routes;
 };
